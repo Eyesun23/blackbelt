@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="tbar">
+    <div class="fill">
+        <div class="container">
+          <form class="pasd" action="/logout" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="logout">
+              <button type="submit" name="logoutbtn" class='basdady'>Logout</button>
+          </form>
+
+            <h2 class="dft">Welcome {{request.session.id}}!</h2>
+
+
+        </div>
+    </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+{% extends './body.html' %}
+
+{% block main_content %}
+    <body>
+    <div class="container">
+        <div id="others" class="wasdasd">
+            <p>Quotable Quotes</p>
+            {% for other in others %}
+                <div id="contained">
+                    <p>{{ other.quoted_by }}: {{ other.message }}</p>
+                    <p>Posted by: <a href="/Quote/{{ other.created_by }}">{{ other.created_by }}</a></p>
+
+                    <form action="/addremove" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ other.id }}" name="addMe">
+                        <input type="submit" value="Add to My List" class='btn small success'>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="favs" class="wsad5">
+            <p>Your Favorites</p>
+            {% for fav in favs %}
+                <p>{{ fav.quoted_by }}: {{ fav.message }}</p>
+                <p>Posted by: <a href="/Quote/{{ fav.created_by }}">{{ fav.created_by }}</a></p>
+                <form action="/addremove" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ fav.id }}" name="deleteMe">
+                    <input type="submit" value="Remove From My List" class='btn small success'>
+                </form>
+            {% endfor %}
+        </div>
+        <div id="formAdd" class="well span5">
+            <form action="/addQuote" method="post" class='fsadaed' id='quoteAdd'>
+                {% csrf_token %}
+                <h2>Contribute a Quote</h2>
+
+                <div class='cleaner'></div>
+                <div class="fix">
+                    <div class="clearfix">
+
+                        <label for="quoted_by">Quoted By:
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.extra_tags == 'quoted_by' %}
+                                        {{ message }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </label>
+                        <div class="input">
+                            <input id="quoted_by" name="quoted_by" type="text"/>
+                        </div>
+                    </div>
+
+                    <div class="clearfix">
+
+                        <label for="message_in">Message:
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.extra_tags == 'message' %}
+                                        {{ message }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </label>
+                        <div class="input">
+                            <textarea id="message_in" name="message_in" cols="30" rows="8"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class='clekjk0'></div>
+                    <input type='submit' value='Submit &raquo;' id='submit_in' name='submit_in' class="btn primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    </body>
+{% endblock %}

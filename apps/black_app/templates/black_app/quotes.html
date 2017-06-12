@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+</head>
+
+<body>
+<div class="topbar">
+    <div class="fill">
+        <div class="cont8">
+            <a class="brand">Posts by {{ request.session.first_name }}</a>
+            {% if not request.session.name %}
+
+            {% endif %}
+
+            {% if request.session.name %}
+                <h2 class="pull-left">Welcome {{ request.session.first_name }}</h2>
+                <form class="pull-right" action="/logout" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="logout">
+                    <button type="submit" name="logoutbtn" class='btn btn-secondary'>Logout</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<p><a href="/home">Dashboard</a> | <a href="/logout">Logout</a></p>
+<p>Posts by {{ author }}</p>
+<p>Count: {{ count }}</p>
+
+{% for quote in quotes %}
+    <div>
+        {{ quote.quoted_by }}: {{ quote.message }}
+    </div>
+{% endfor %}
+</body>
+</html>
